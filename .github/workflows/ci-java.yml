@@ -6,12 +6,8 @@ on:
       - main 
 jobs:
     build-image-docker:
-        env:
-           WORK_DIR_TMP: /tmp
-    
-        runs-on: ubuntu-latest    
-
-        container: maven:3.6.3-jdk-11
+      
+        runs-on: ubuntu-latest 
 
         steps:
         - uses: actions/checkout@v4

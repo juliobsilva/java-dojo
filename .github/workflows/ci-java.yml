@@ -6,19 +6,33 @@ on:
       - main 
 jobs:
     build-image-docker:
+        env:
+           WORK_DIR_TMP: /tmp
     
         runs-on: ubuntu-latest    
+
+        container: maven:3.6.3-jdk-11
+
         steps:
         - uses: actions/checkout@v4
 
-        - name: action docker login
-          uses: azure/docker-login@v1
-          with:
-            login-server: 'docker.io'
-            username: ${{ secrets.DOCKER_USERNAME }}
-            password: ${{ secrets.DOCKER_PASSWORD }}
+        - name: Prepare for Docker
+          run: |
+
+            cat << EOF >> $WORK_DIR_TMP/Dockerfile
+            COPY pom.xml .
+            COPY src src
+            RUN mvn -B package -DskipTests
+            EOF
+
+        # - name: action docker login
+        #   uses: azure/docker-login@v1
+        #   with:
+        #     login-server: 'docker.io'
+        #     username: ${{ secrets.DOCKER_USERNAME }}
+        #     password: ${{ secrets.DOCKER_PASSWORD }}
     
         - name: build docker image
-          run: docker build -t javadojo .
+          run: docker build -t javadojo /tmp
     
         

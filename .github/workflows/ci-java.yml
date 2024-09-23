@@ -16,23 +16,14 @@ jobs:
         steps:
         - uses: actions/checkout@v4
 
-        - name: Prepare for Docker
-          run: |
-
-            cat << EOF >> $WORK_DIR_TMP/Dockerfile
-            COPY pom.xml .
-            COPY src src
-            RUN mvn -B package -DskipTests
-            EOF
-
-        # - name: action docker login
-        #   uses: azure/docker-login@v1
-        #   with:
-        #     login-server: 'docker.io'
-        #     username: ${{ secrets.DOCKER_USERNAME }}
-        #     password: ${{ secrets.DOCKER_PASSWORD }}
+        - name: action docker login
+          uses: azure/docker-login@v1
+          with:
+            login-server: 'docker.io'
+            username: ${{ secrets.DOCKER_USERNAME }}
+            password: ${{ secrets.DOCKER_PASSWORD }}
     
         - name: build docker image
-          run: docker build -t javadojo /tmp
+          run: docker build -t javadojo .
     
         

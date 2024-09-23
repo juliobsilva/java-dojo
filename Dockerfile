@@ -4,6 +4,6 @@ WORKDIR /APP
 
 COPY pom.xml .
 
-COPY src src
+COPY java-dojo/src src
 
 RUN mvn -B package -DskipTests

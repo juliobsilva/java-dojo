@@ -22,7 +22,11 @@ jobs:
           run: docker build -t ghcr.io/${{github.repository}}/dojojava:latest .
 
         - name: push docker image
-          run: docker push ghcr.io/${{github.repository}}/dojojava:latest
+          uses: docker/build-push-action@v6
+          with:
+            context: .
+            push: true
+            tags: ghcr.io/${{github.repository}}/dojojava:latest
     
 
         

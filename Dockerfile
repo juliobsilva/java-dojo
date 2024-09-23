@@ -4,6 +4,6 @@ WORKDIR /APP
 
 COPY pom.xml .
 
-COPY ./projectjavadejo/src src
+COPY projectjavadejo/src src
 
 RUN mvn -B package -DskipTests

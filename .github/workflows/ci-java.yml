@@ -19,7 +19,7 @@ jobs:
             password: ${{ secrets.DOCKER_PASSWORD }}
     
         - name: build docker image
-          run: docker build -t ghcr.io/${{github.repository}}/dojojava:latest .
+          run: docker build -t ghcr.io/${{github.repository}}/java-dojo:latest .
 
         - name: Log in to GitHub container registry
           uses: docker/login-action@v3
@@ -29,7 +29,7 @@ jobs:
             password: ${{ secrets.GITHUB_TOKEN }}
 
         - name: Push Docker image
-          run: docker push ghcr.io/${{ github.repository }}/javadojo:latest
+          run: docker push ghcr.io/${{ github.repository }}/java-dojo:latest
     
 
         

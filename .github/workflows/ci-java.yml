@@ -1,0 +1,17 @@
+name: Java and Maven CI
+
+on:
+  push:
+    branches:
+      - main 
+jobs:
+    build-image-docker:
+    
+        runs-on: ubuntu-latest    
+        steps:
+        - uses: actions/checkout@v4
+    
+        - name: build docker image
+          run: docker build -t javadojo .
+    
+        

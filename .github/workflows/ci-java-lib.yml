@@ -1,0 +1,43 @@
+name: CI Java Lib
+
+on:
+  push:
+    branches:
+      - main 
+jobs:
+  build-java-lib:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Set up JDK 11 (ou outra versão necessária)
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      # Build the project using Maven
+      - name: Build with Maven
+        run: mvn clean install
+
+      # Upload .jar as a build artifact
+      - name: Upload JAR file
+        uses: actions/upload-artifact@v3
+        with:
+          name: my-app.jar
+          path: target/*.jar
+
+      # Authenticate with GitHub Packages using GITHUB_TOKEN
+      - name: Authenticate with GitHub Packages
+        run: echo "//maven.pkg.github.com/${{ github.repository }}=${{ secrets.DOJO_USER_TOKEN }}" >> ~/.m2/settings.xml
+
+      # Publish to GitHub Packages
+      - name: Publish package to GitHub Packages
+        run: mvn deploy
+
+        
+

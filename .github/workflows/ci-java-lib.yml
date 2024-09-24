@@ -52,7 +52,7 @@ jobs:
 
       # Publish to GitHub Packages
       - name: Publish package to GitHub Packages
-        run: mvn deploy -Dmaven.test.skip=true -DaltDeploymentRepository=github::default::https://maven.pkg.github.com/${{ github.repository }}
+        run: mvn deploy -Dmaven.test.skip=true -DaltDeploymentRepository=github::default::https://maven.pkg.github.com/${{ github.repository }} --file project/pom.xml
 
         
 

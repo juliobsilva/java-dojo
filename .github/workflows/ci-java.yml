@@ -38,6 +38,10 @@ jobs:
             tags: ghcr.io/${{ env.REPO }}:${{ github.sha }}
             file: ./Dockerfile
   
-
+        - name: Deploy to GitHub Packages
+          run: mvn --batch-mode deploy -DaltDeploymentRepository=github::default::https://maven.pkg.github.com/${{github.actor}}/java-dojo
+          env:
+            GITHUB_TOKEN: ${{ secrets.DOJO_USER_TOKEN }}
+          
         
         

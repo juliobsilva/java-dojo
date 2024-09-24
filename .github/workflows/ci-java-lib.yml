@@ -38,7 +38,17 @@ jobs:
       - name: Authenticate with GitHub Packages
         run: |
           mkdir -p ~/.m2 
-          echo "//maven.pkg.github.com/${{ github.repository }}=${{ secrets.DOJO_USER_TOKEN }}" >> ~/.m2/settings.xml 
+          cat <<EOF > ~/.m2/settings.xml
+          <settings>
+            <servers>
+              <server>
+                <id>github</id>
+                <username>\${{ github.actor }}</username>
+                <password>\${{ secrets.DOJO_USER_TOKEN }}</password>
+              </server>
+            </servers>
+          </settings>
+          EOF
 
       # Publish to GitHub Packages
       - name: Publish package to GitHub Packages

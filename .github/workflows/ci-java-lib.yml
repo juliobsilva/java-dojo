@@ -43,8 +43,8 @@ jobs:
             <servers>
               <server>
                 <id>github</id>
-                <username>\${{ github.actor }}</username>
-                <password>\${{ secrets.DOJO_USER_TOKEN }}</password>
+                <username>oauth2</username>
+                <password>\${{ secrets.GITHUB_TOKEN }}</password>
               </server>
             </servers>
           </settings>

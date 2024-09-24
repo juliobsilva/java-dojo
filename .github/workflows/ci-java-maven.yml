@@ -34,21 +34,9 @@ jobs:
            push: true
            tags: ghcr.io/${{ env.REPO }}:${{ github.sha }}
            file: ./Dockerfile
-
-        # - name: Configurar autenticação Maven para GitHub Packages
-        #   run: |
-        #     mkdir -p ~/.m2
-        #     echo "<settings>
-        #       <servers>
-        #         <server>
-        #           <id>github</id>
-        #           <username>${{github.actor}}</username>
-        #           <password>${{ secrets.DOJO_USER_TOKEN }}</password>
-        #         </server>
-        #       </servers>
-        #     </settings>" > ~/.m2/settings.xml
           
-        - name: Deploy to GitHub Packages
-          run: mvn --batch-mode deploy -DaltDeploymentRepository=github::default::https://maven.pkg.github.com/${{ github.repository }} --file ./project/pom.xml
-          env:
-            GITHUB_TOKEN: ${{ secrets.DOJO_USER_TOKEN }}
+        - name: Authenticate with GitHub Packages
+          run: echo "//maven.pkg.github.com/${{ github.repository }}=${{ secrets.DOJO_USER_TOKEN }}" >> ~/.m2/settings.xml
+
+        - name: Publish to GitHub Packages
+          run: mvn deploy -Dmaven.test.skip=true

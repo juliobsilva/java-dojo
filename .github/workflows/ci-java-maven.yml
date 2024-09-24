@@ -49,6 +49,6 @@ jobs:
         #     </settings>" > ~/.m2/settings.xml
           
         - name: Deploy to GitHub Packages
-          run: mvn --batch-mode deploy -DaltDeploymentRepository=github::default::https://maven.pkg.github.com/${{ github.repository }} --file ./dojo-java/pom.xml
+          run: mvn --batch-mode deploy -DaltDeploymentRepository=github::default::https://maven.pkg.github.com/${{ github.repository }} --file ./project/pom.xml
           env:
             GITHUB_TOKEN: ${{ secrets.DOJO_USER_TOKEN }}

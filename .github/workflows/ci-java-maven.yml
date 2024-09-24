@@ -1,11 +1,11 @@
-name: Java and Maven CI
+name: Java-Jar and Maven CI
 
 on:
   push:
     branches:
       - main 
 jobs:
-    build-image-docker:
+    build-jar:
 
         runs-on: ubuntu-latest 
 

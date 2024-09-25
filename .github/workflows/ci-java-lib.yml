@@ -25,4 +25,4 @@ jobs:
         run: mvn -B package --file ./project/pom.xml
 
       - name: List target
-        run: ls target
+        run: ls ./project/target

@@ -27,11 +27,15 @@ jobs:
 
       # Listar arquivos no diretório
       - name: List target directory
-        run: ls -la target
+        run: ls -la target || echo "Target directory does not exist"
 
       # Build with Maven
       - name: Build with Maven
-        run: mvn -B package --file ./project/pom.xml
+        run: mvn -B package --file ./project/pom.xml || { echo "Build failed"; mvn -B clean verify --file ./project/pom.xml; exit 1; }
+
+      # Listar novamente após o build
+      - name: List target directory after build
+        run: ls -la target || echo "Target directory still does not exist"
 
       # Upload to GitHub Packages
       - name: Upload to GitHub Packages

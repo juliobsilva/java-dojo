@@ -22,7 +22,7 @@ jobs:
           java-version: '21'
 
       - name: Build with Maven
-        run: mvn clean package 
+        run: mvn -B package --file ./project/pom.xml
 
       - name: List target
         run: ls target

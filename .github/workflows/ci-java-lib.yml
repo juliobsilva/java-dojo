@@ -33,7 +33,7 @@ jobs:
 
       - name: Upload to GitHub Packages
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.DOJO_GITHUB_TOKEN }}
         run: |
           mvn deploy:deploy-file \
             -Dfile=target/my-java-app.jar \

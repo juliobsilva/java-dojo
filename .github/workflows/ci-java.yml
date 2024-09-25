@@ -38,5 +38,5 @@ jobs:
             tags: ghcr.io/${{ env.REPO }}:${{ github.sha }}
             file: ./Dockerfile
 
-        
+
         

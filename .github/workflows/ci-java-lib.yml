@@ -36,4 +36,4 @@ jobs:
             -Dversion=1.0.0 \
             -Dpackaging=jar
             -Dusername=${{ github.actor }} \
-            -Dpassword=${{ secrets.DOJO_GITHUB_TOKEN }}
+            -Dpassword=${{ secrets.DOJO_USER_TOKEN }}

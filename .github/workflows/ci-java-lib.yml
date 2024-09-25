@@ -21,32 +21,8 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
 
-      # Baixar Dependências
-      - name: Baixar Deps
-        run: mvn -f ./project/pom.xml clean install  
-
-      # Listar arquivos no diretório
-      - name: List target directory
-        run: ls -la target || echo "Target directory does not exist"
-
-      # Build with Maven
       - name: Build with Maven
-        run: mvn -B package --file ./project/pom.xml || { echo "Build failed"; mvn -B clean verify --file ./project/pom.xml; exit 1; }
+        run: mvn clean package 
 
-      # Listar novamente após o build
-      - name: List target directory after build
-        run: ls -la target || echo "Target directory still does not exist"
-
-      # Upload to GitHub Packages
-      - name: Upload to GitHub Packages
-        env:
-          GITHUB_TOKEN: ${{ secrets.DOJO_GITHUB_TOKEN }}
-        run: |
-          mvn deploy:deploy-file \
-            -Dfile=target/my-java-app-1.0.0.jar \  # Ajuste este nome conforme necessário
-            -DrepositoryId=github \
-            -Durl=https://maven.pkg.github.com/juliobsilva/java-dojo \
-            -DgroupId=com.example \
-            -DartifactId=my-java-app \
-            -Dversion=1.0.0 \
-            -Dpackaging=jar
+      - name: List target
+        run: ls target

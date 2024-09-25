@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main 
+
 jobs:
   build-java-lib:
     runs-on: ubuntu-latest
@@ -13,35 +14,35 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # Set up JDK 11 (ou outra versão necessária)
+      # Set up JDK 21
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '21'
 
+      # Baixar Dependências
       - name: Baixar Deps
-        run: |
-          mvn -f ./project/pom.xml clean install  
+        run: mvn -f ./project/pom.xml clean install  
 
-      - name: List
-        run: |
-          ls -la
+      # Listar arquivos no diretório
+      - name: List target directory
+        run: ls -la target
 
+      # Build with Maven
       - name: Build with Maven
         run: mvn -B package --file ./project/pom.xml
 
+      # Upload to GitHub Packages
       - name: Upload to GitHub Packages
         env:
           GITHUB_TOKEN: ${{ secrets.DOJO_GITHUB_TOKEN }}
         run: |
           mvn deploy:deploy-file \
-            -Dfile=target/my-java-app.jar \
+            -Dfile=target/my-java-app-1.0.0.jar \  # Ajuste este nome conforme necessário
             -DrepositoryId=github \
             -Durl=https://maven.pkg.github.com/juliobsilva/java-dojo \
             -DgroupId=com.example \
             -DartifactId=my-java-app \
             -Dversion=1.0.0 \
             -Dpackaging=jar
-          
-

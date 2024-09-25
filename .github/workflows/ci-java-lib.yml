@@ -28,7 +28,7 @@ jobs:
 
       - name: Upload to GitHub Packages        
         run: |
-          cat <<EOF>> settings.xml
+          cat <<EOF > settings.xml
           <settings>
             <servers>
               <server>
@@ -37,7 +37,9 @@ jobs:
                 <password>\${env.GITHUB_TOKEN}</password>
               </server>
             </servers>
-            EOF
+          </settings>
+          EOF
+
           mvn deploy:deploy-file \
             -Dfile=./project/target/demo-0.0.1-SNAPSHOT.jar \
             -DrepositoryId=github \

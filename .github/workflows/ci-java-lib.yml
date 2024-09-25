@@ -7,6 +7,9 @@ on:
 
 jobs:
   build-java-lib:
+    env:
+          GITHUB_TOKEN: ${{ secrets.DOJO_GITHUB_TOKEN }}
+          GITHUB_ACTOR: ${{ github.actor }}
     runs-on: ubuntu-latest
 
     steps:
@@ -21,38 +24,16 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
 
-      # Criar o settings.xml do Maven
-      - name: Create Maven settings.xml
-        run: |
-          mkdir -p ~/.m2
-          cat <<EOF > ~/.m2/settings.xml
-          <settings>
-            <servers>
-              <server>
-                <id>github</id>
-                <username>\${{ secrets.GITHUB_ACTOR }}</username>
-                <password>\${{ secrets.DOJO_GITHUB_TOKEN }}</password>
-              </server>
-            </servers>
-          </settings>
-          EOF
-
-      # Baixar Dependências
-      - name: Baixar Deps
-        run: mvn -f ./project/pom.xml clean install  
-
-      # Build with Maven
       - name: Build with Maven
-        run: mvn -B package --file ./project/pom.xml
-
-      # Upload to GitHub Packages
-      - name: Upload to GitHub Packages
-        run: |
+        run: | 
+          mvn -B package --file ./project/pom.xml          
           mvn deploy:deploy-file \
-            -Dfile=target/my-java-app-1.0.0.jar \  # Ajuste este nome conforme necessário
+            -Dfile=./project/target/demo-0.0.1-SNAPSHOT.jar \
             -DrepositoryId=github \
             -Durl=https://maven.pkg.github.com/juliobsilva/java-dojo \
             -DgroupId=com.example \
-            -DartifactId=my-java-app \
+            -DartifactId=demo \
             -Dversion=1.0.0 \
             -Dpackaging=jar
+            -Dusername=${GITHUB_ACTOR} \
+            -Dpassword=${GITHUB_TOKEN}

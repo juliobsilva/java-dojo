@@ -35,5 +35,5 @@ jobs:
             -DartifactId=demo \
             -Dversion=1.0.0 \
             -Dpackaging=jar
-            -Dusername=${GITHUB_ACTOR} \
-            -Dpassword=${GITHUB_TOKEN}
+            -Dusername=${{ github.actor }} \
+            -Dpassword=${{ secrets.DOJO_GITHUB_TOKEN }}

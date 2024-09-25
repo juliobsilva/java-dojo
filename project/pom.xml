@@ -51,4 +51,11 @@
 		</plugins>
 	</build>
 
+	<distributionManagement>
+        <repository>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/juliobsilva/java-dojo</url>
+        </repository>
+    </distributionManagement>
+
 </project>

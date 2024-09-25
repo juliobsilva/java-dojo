@@ -31,10 +31,17 @@ jobs:
       - name: Build with Maven
         run: mvn -B package --file ./project/pom.xml
 
-      - name: Publish package
-        run: mvn --batch-mode deploy
+      - name: Upload to GitHub Packages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-        
+        run: |
+          mvn deploy:deploy-file \
+            -Dfile=target/my-java-app.jar \
+            -DrepositoryId=github \
+            -Durl=https://maven.pkg.github.com/juliobsilva/java-dojo \
+            -DgroupId=com.example \
+            -DartifactId=my-java-app \
+            -Dversion=1.0.0 \
+            -Dpackaging=jar
+          
 

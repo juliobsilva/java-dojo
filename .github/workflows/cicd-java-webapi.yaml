@@ -4,14 +4,17 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - 'src-java-webapi/**'
+    - 'src-java-webapi/**'
+permissions:
+  contents: read
+  packages: write
 
 jobs:
   call-build:
     uses: ./.github/workflows/reusable-ci-java.yaml
     with:
       app-path: ./src-java-webapi
-
+      
   deploy:
     needs: call-build
     runs-on: ubuntu-latest
@@ -42,7 +45,6 @@ jobs:
         id: push
         uses: docker/build-push-action@v6
         with:
-          context: ./output
           file: ./src-java-webapi/Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}

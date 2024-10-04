@@ -5,7 +5,7 @@ FROM openjdk:11-jre-slim
 WORKDIR /app
 
 # Copy the current directory contents into the container at /app
-COPY . /app
+COPY ./src-java-webapi /app
 
 # Expose the port the application runs on
 EXPOSE 8080

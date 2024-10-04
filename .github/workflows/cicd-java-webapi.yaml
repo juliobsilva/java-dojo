@@ -5,6 +5,10 @@ on:
   push:
     paths:
     - 'src-java-webapi/**'
+permissions:
+  contents: read
+  packages: write
+  id-token: write
 
 jobs:
   call-build:

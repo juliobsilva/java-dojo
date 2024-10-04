@@ -38,14 +38,11 @@ jobs:
         with:
           images: ghcr.io/${{ github.repository }}
 
-      - name: ls
-        run: ls -l ./output/
-
       - name: Build and push Docker image
         id: push
         uses: docker/build-push-action@v6
         with:
-          context: ./output/
+          context: ./src-java-webapi/Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}

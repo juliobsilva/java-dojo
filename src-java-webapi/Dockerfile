@@ -11,8 +11,6 @@ COPY ../src-java-webapi/src src
 # Expose the port the application runs on
 EXPOSE 8080
 
-# Define the command to run the application
-CMD ["java", "-jar", "build-artifact.jar"]
 
 
 

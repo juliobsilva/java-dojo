@@ -39,7 +39,9 @@ jobs:
           images: ghcr.io/${{ github.repository }}
 
       - name: List files in target directory
-        run: ls -l ./src-java-webapi/target
+        run: |
+            ls -l ./src-java-webapi/target
+            ls -la .
 
       - name: Build and push Docker image
         id: push

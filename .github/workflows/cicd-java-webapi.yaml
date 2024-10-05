@@ -4,7 +4,8 @@ on:
   workflow_dispatch:
   push:
     paths:
-    - 'src-java-webapi/**'
+      - 'src-java-webapi/**'
+
 permissions:
   contents: read
   packages: write

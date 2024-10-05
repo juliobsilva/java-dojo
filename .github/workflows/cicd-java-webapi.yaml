@@ -6,10 +6,6 @@ on:
     paths:
       - 'src-java-webapi/**'
 
-permissions:
-  contents: read
-  packages: write
-
 jobs:
   call-build:
     uses: ./.github/workflows/reusable-ci-java.yaml
@@ -19,9 +15,7 @@ jobs:
   deploy:
     needs: call-build
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
+    permissions: write-all
     steps:
       - name: Download artifact
         uses: actions/download-artifact@v4

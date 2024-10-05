@@ -5,7 +5,7 @@ FROM openjdk:17-jdk-slim
 WORKDIR /app
 
 # Copy the current directory contents into the container at /app
-COPY ../src-java-webapi/target/*.jar /app/app.jar
+COPY ./src-java-webapi/target/build-artifact.jar .
 
 # Expose the port the application runs on
 EXPOSE 8080
@@ -14,6 +14,6 @@ EXPOSE 8080
 RUN ./mvnw package
 
 # Define the entry point for the container
-ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+ENTRYPOINT ["java", "-jar", "build-artifact.jar"]
 
 

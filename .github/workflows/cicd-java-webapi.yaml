@@ -23,7 +23,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: build-artifact
-          path: ./output
+          path: ./src-java-webapi/target
 
       - name: Log in to the Container registry
         uses: docker/login-action@v3

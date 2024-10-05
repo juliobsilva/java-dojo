@@ -42,7 +42,8 @@ jobs:
         id: push
         uses: docker/build-push-action@v6
         with:
-          file: ./src-java-webapi/Dockerfile
+          context: ./output/          
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          file: ./src-java-webapi/Dockerfile
